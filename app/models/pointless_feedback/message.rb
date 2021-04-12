@@ -50,7 +50,7 @@ module PointlessFeedback
     end
 
     def is_not_spam
-      if URI.extract(description || "").count >= 3
+      if URI::Parser.new.extract(description || "").count >= 3
         errors.add(:description, "can not contain more than 2 http links (often a sign of spam)")
       end
     end

@@ -5,7 +5,7 @@ module PointlessFeedback
     before do
       PointlessFeedback.to_emails = 'to@example.com'
 
-      @message = FactoryGirl.create(:message)
+      @message = FactoryBot.create(:message)
       @mail    = FeedbackMailer.feedback(@message)
     end
 

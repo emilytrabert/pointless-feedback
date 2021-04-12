@@ -11,7 +11,7 @@ module PointlessFeedback
 
       it { assert_response :success }
       it { assert_template :new }
-      it { assigns(:message).must_be_instance_of Message }
+      it { _(assigns(:message)).must_be_instance_of Message }
     end
 
     describe "posting to create" do
@@ -28,35 +28,35 @@ module PointlessFeedback
 
       describe "with invalid params" do
         setup do
-          post :create, @valid_params.merge(:message => { :name => ''})
+          post(:create, params: @valid_params.merge(:message => { :name => ''}))
         end
 
         it { assert_response :success }
         it { assert_template :new }
 
-        it { assigns(:message).must_be :invalid? }
+        it { _(assigns(:message)).must_be :invalid? }
       end
 
       describe "with valid params" do
         describe "with default after_message_create_path" do
           setup do
-            post :create, @valid_params
+            post(:create, params: @valid_params)
           end
 
           it { assert_response :redirect }
           it { assert_redirected_to '/' }
-          it { flash[:notice].must_equal 'Thanks for your feedback!' }
+          it { _(flash[:notice]).must_equal 'Thanks for your feedback!' }
         end
 
         describe "with overridden after_message_create_path" do
           setup do
             @controller.instance_eval "def after_message_create_path; '/dashboard'; end"
-            post :create, @valid_params
+            post(:create, params: @valid_params)
           end
 
           it { assert_response :redirect }
           it { assert_redirected_to '/dashboard' }
-          it { flash[:notice].must_equal 'Thanks for your feedback!' }
+          it { _(flash[:notice]).must_equal 'Thanks for your feedback!' }
         end
       end
     end

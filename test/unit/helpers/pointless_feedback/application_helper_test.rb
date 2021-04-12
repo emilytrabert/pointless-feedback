@@ -24,15 +24,15 @@ module PointlessFeedback
       let(:raw_helper) { PointlessFeedbackApplicationHelperMock.new }
 
       it "outputs named path from the main app" do
-        raw_helper.foo_path.must_equal '/foo'
+        _(raw_helper.foo_path).must_equal '/foo'
       end
 
       it "outputs named url from the main app" do
-        raw_helper.foo_url.must_equal 'http://host/foo'
+        _(raw_helper.foo_url).must_equal 'http://host/foo'
       end
 
       it "raises exception with other routes" do
-        proc{ raw_helper.lolwut_path }.must_raise NoMethodError
+        _(proc{ raw_helper.lolwut_path }).must_raise NoMethodError
       end
     end
   end

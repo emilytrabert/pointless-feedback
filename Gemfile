@@ -9,5 +9,6 @@ group :test do
   gem 'test-unit'
   gem 'pry'
   gem 'minitest-spec-rails'
+  gem 'rails-controller-testing'
   gem 'mocha', require: false
 end

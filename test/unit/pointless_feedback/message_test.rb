@@ -9,12 +9,12 @@ module PointlessFeedback
         subject.send("#{field}=", '')
         subject.save
 
-        subject.errors[field.to_sym].must_include "can't be blank"
+        _(subject.errors[field.to_sym]).must_include "can't be blank"
       end
     end
 
     describe "validating topics" do
-      subject { FactoryGirl.build(:message) }
+      subject { FactoryBot.build(:message) }
 
       it "allows valid topic" do
         subject.topic = 'Other'
@@ -26,12 +26,12 @@ module PointlessFeedback
         subject.topic = 'lolwut'
 
         assert subject.invalid?
-        subject.errors[:topic].must_include "is not included in the list"
+        _(subject.errors[:topic]).must_include "is not included in the list"
       end
     end
 
     describe "validating email" do
-      subject { FactoryGirl.build(:message) }
+      subject { FactoryBot.build(:message) }
 
       it "allows a valid email address" do
         subject.email_address = 'test@example.com'
@@ -52,7 +52,7 @@ module PointlessFeedback
     end
 
     describe "validating against spam" do
-      subject { FactoryGirl.build(:message) }
+      subject { FactoryBot.build(:message) }
 
       it "allows descriptions with no links" do
         subject.description = "I have no links!"
@@ -74,7 +74,7 @@ module PointlessFeedback
           PointlessFeedback.to_emails = ['test1@example.com', 'test2@example.com']
         end
 
-        subject { FactoryGirl.build(:message) }
+        subject { FactoryBot.build(:message) }
 
         it "sends mail after create" do
           mailer = stub(:deliver_now => true)
@@ -97,7 +97,7 @@ module PointlessFeedback
         before  do
           PointlessFeedback.email_feedback = false
         end
-        subject { FactoryGirl.build(:message) }
+        subject { FactoryBot.build(:message) }
 
         it "does not send any mail" do
           FeedbackMailer.expects(:feedback).times(0)
