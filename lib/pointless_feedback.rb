@@ -24,6 +24,9 @@ module PointlessFeedback
   mattr_accessor :message_topics
   @@message_topics = ['Error on page', 'Other']
 
+  mattr_accessor :styling
+  @@message_topics = 'none'
+
   # Variables needed for emailing feedback
   mattr_accessor :email_feedback
   @@email_feedback = false
